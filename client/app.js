@@ -1,17 +1,18 @@
 //app.js
 var qcloud = require('./vendor/wafer2-client-sdk/index')
 var config = require('./config')
+let userInfo = null
 
 App({
     onLaunch: function () {
-        qcloud.setLoginUrl(config.service.loginUrl)
+      qcloud.setLoginUrl(config.service.loginUrl)
     },
     login({ success, error }) {
       qcloud.login({
         success: result => {
           if (result) {
             console.log(result)
-            let userInfo = result
+            userInfo = result
 
             success && success({
               userInfo
@@ -31,7 +32,7 @@ App({
       if (userInfo) return userInfo
 
       qcloud.request({
-        url: config.service.user,
+        url: config.service.userUrl,
         login: true,
         success: result => {
           let data = result.data

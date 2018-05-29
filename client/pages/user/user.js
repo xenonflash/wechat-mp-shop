@@ -35,12 +35,23 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-   
+    this.checkSession({
+      success: ({ userInfo }) => {
+        this.setData({ userInfo })
+      },
+      fail: err => {
+        app.login({
+          success: ({ userInfo }) => {
+            this.setData({ userInfo })
+          }
+        })
+      }
+    })
   },
   onTapLogin(){
     app.login({
-      success:function({ userInfo }) {
-        console.log(userInfo)
+      success: ({ userInfo }) => {
+        this.setData({ userInfo })
       }
     })
   },
@@ -91,5 +102,16 @@ Page({
    */
   onShareAppMessage: function () {
   
-  }
+  },
+
+  checkSession({ success, error }) {
+    wx.checkSession({
+      success: () => {
+        app.getUserInfo({ success, error })
+      },
+      fail: () => {
+        error && error()
+      }
+    })
+  },
 })
