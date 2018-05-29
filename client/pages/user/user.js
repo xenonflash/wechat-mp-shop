@@ -1,3 +1,8 @@
+const qcloud = require('../../vendor/wafer2-client-sdk/index.js')
+const config = require('../../config.js')
+
+const app = getApp()
+
 // pages/user/user.js
 Page({
 
@@ -26,19 +31,24 @@ Page({
     })
   },
 
-
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+   
+  },
+  onTapLogin(){
+    app.login({
+      success:function({ userInfo }) {
+        console.log(userInfo)
+      }
+    })
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
   },
 
   /**
