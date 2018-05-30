@@ -54,8 +54,7 @@ App({
     },
 
     getUserInfo({ success, error }) {
-      if (userInfo) return userInfo
-
+      if (userInfo) return success({userInfo})
       qcloud.request({
         url: config.service.userUrl,
         login: true,
@@ -78,6 +77,7 @@ App({
       })
     },
     checkSession({ success, error }) {
+      console.log('check session')
       wx.checkSession({
         success: () => {
           this.getUserInfo({ success, error })

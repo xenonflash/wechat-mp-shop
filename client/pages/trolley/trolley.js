@@ -1,11 +1,12 @@
 // pages/trolley/trolley.js
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-  
+    userInfo: null
   },
 
   /**
@@ -25,15 +26,27 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-  
+  onShow: function (options) {
+    console.log('onShow')
+    app.checkSession({
+      success: ({ userInfo }) => {
+        this.setData({ userInfo })
+      },
+      fail: err => {
+        app.login({
+          success: ({ userInfo }) => {
+            this.setData({ userInfo })
+          }
+        })
+      }
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
+  onTapLogin() {
+    app.login({
+      success: ({ userInfo }) => {
+        this.setData({ userInfo })
+      }
+    })
   },
 
   /**

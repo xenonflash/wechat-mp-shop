@@ -11,10 +11,6 @@ Page({
    */
   data: {
     userInfo: null,
-    // userInfo: {
-    //   nickName: "优达学城",
-    //   avatarUrl: "", // 头像 URL 地址
-    // }, // 虚拟数据
   },
 
   onTapAddress() {
