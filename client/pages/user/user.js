@@ -34,8 +34,8 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    this.checkSession({
+  onShow: function (options) {
+    app.checkSession({
       success: ({ userInfo }) => {
         this.setData({ userInfo })
       },
@@ -55,14 +55,5 @@ Page({
       }
     })
   },
-  checkSession({ success, error }) {
-    wx.checkSession({
-      success: () => {
-        app.getUserInfo({ success, error })
-      },
-      fail: () => {
-        error && error()
-      }
-    })
-  },
+ 
 })

@@ -77,4 +77,14 @@ App({
         }
       })
     },
+    checkSession({ success, error }) {
+      wx.checkSession({
+        success: () => {
+          this.getUserInfo({ success, error })
+        },
+        fail: () => {
+          error && error()
+        }
+      })
+    },
 })
