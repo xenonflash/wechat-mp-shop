@@ -7,7 +7,32 @@ App({
     onLaunch: function () {
       qcloud.setLoginUrl(config.service.loginUrl)
     },
-    login({ success, error }) {
+    login: function({ success, error }) {
+      wx.getSetting({
+        success: res => {
+          if (res.authSetting['scope.userInfo'] === false) {
+            //用户拒绝了授权
+            wx.showModal({
+              title: '提示',
+              content: '请授权用户信息',
+              showCancel:false,
+              success: res => {
+                wx.openSetting({
+                  success:res => {
+                    if (res.authSetting['scope.userInfo'] === true) {
+                      this.doQcloudLogin({ success, error })
+                    }
+                  }
+                })
+              }
+            })
+          } else {
+            this.doQcloudLogin({ success, error })
+          }
+        }
+      })
+    },
+    doQcloudLogin({ success, error }) {
       qcloud.login({
         success: result => {
           if (result) {
