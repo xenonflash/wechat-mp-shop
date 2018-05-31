@@ -1,2 +1,12 @@
 <!--pages/order/order.wxml-->
-<text>订单</text>
+<view class="order-list">
+  <view wx:for="{{orderList}}">
+    <view wx:for="{{item.list}}">
+      <image src="{{item.image}}"></image>
+      <view>{{item.name}}</view>
+      <view>{{item.price}}</view>
+      <view>{{item.count}}</view>
+    </view>
+    <button>评价</button>
+  </view>
+</view>
